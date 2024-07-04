@@ -2,8 +2,8 @@
 import Link from "next/link";
 import { Logo } from ".";
 import { usePathname } from "next/navigation";
-import clsx from "clsx";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const routes = [
   { name: "Home", path: "/" },
@@ -22,7 +22,7 @@ function Header() {
           {routes.map((route) => (
             <li
               key={route.path}
-              className={clsx(
+              className={cn(
                 "hover:text-white transition flex items-center relative",
                 {
                   "text-white": activePath === route.path,
@@ -33,7 +33,7 @@ function Header() {
               {activePath === route.path && (
                 <motion.div
                   layoutId="header-active-link"
-                  className="bg-accent h-1 w-full absolute left-0 bottom-0"></motion.div>
+                  className="bg-accent h-1 w-full absolute left-0 bottom-0 rounded-full"></motion.div>
               )}
             </li>
           ))}
