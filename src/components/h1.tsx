@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 type H1Props = {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 };
 
 function H1({ children, className }: H1Props) {
