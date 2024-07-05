@@ -1,27 +1,34 @@
 import { EventsList, H1 } from "@/components";
 import { TEvent } from "@/lib/types";
 import { getSentenceCase } from "@/lib/utils";
+import { Suspense } from "react";
+import Loading from "./loading";
+import { Metadata } from "next";
 
-type EventsProps = {
+type Props = {
   params: { city: string };
 };
 
-async function Events({ params }: EventsProps) {
-  const city = getSentenceCase(params.city);
+export function generateMetadata({ params }: Props): Metadata {
+  const city = params.city;
+  return {
+    title: `${
+      city === "all" ? "All Events" : `Events in ${getSentenceCase(city)}`
+    } | ByteGrad`,
+  };
+}
 
-  const res = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${params.city}`
-  );
-
-  const events: TEvent[] = await res.json();
+async function Events({ params }: Props) {
+  const city = params.city;
 
   return (
     <main className="flex flex-col items-center py-24 px-3 sm:px-9 min-h-[110vh]">
       <H1 className="mb-28">
-        {city === "All" ? "All Events" : `Events in ${city}`}
-      </H1>
-
-      <EventsList events={events} />
+        {city === "all" ? "All Events" : `Events in ${getSentenceCase(city)}`}
+      </H1>{" "}
+      <Suspense fallback={<Loading />}>
+        <EventsList city={params.city} />
+      </Suspense>
     </main>
   );
 }

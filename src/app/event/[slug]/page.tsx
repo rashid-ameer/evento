@@ -2,20 +2,29 @@ import Image from "next/image";
 
 import { TEvent } from "@/lib/types";
 import { H1 } from "@/components";
+import { Metadata } from "next";
+import { getEvent } from "@/lib/api";
 
-type EventProps = {
+type Props = {
   params: {
     slug: string;
   };
 };
 
-async function Event({ params }: EventProps) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
 
-  const res = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
-  );
-  const event: TEvent = await res.json();
+  const event = await getEvent(slug);
+
+  return {
+    title: `${event.name} | ByteGrad`,
+  };
+}
+
+async function Event({ params }: Props) {
+  const slug = params.slug;
+
+  const event = await getEvent(slug);
 
   return (
     <main>

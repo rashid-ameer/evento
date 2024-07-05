@@ -1,11 +1,14 @@
 import { TEvent } from "@/lib/types";
 import EventCard from "./event-card";
+import { getEvents } from "@/lib/api";
 
 type EventsListProps = {
-  events: TEvent[];
+  city: string;
 };
 
-function EventsList({ events }: EventsListProps) {
+async function EventsList({ city }: EventsListProps) {
+  const events = await getEvents(city);
+
   return (
     <section className="max-w-[1100px] flex flex-wrap justify-center gap-10">
       {events.map((event) => (
