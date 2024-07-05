@@ -6,3 +6,4 @@ export { default as SearchForm } from "./SearchForm";
 export { default as H1 } from "./h1";
 export { default as EventsList } from "./events-list";
 export { default as EventCard } from "./event-card";
+export { default as PaginationControls } from "./pagination-controls";

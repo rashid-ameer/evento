@@ -27,8 +27,10 @@ export default function EventCard({ event }: EventCardProps) {
       className="flex-1 basis-80 h-[380px] max-w-[500px]"
       href={`/event/${event.slug}`}
       style={{
-        scale: scaleProgress.get(),
-        opacity: opacityProgress.get(),
+        // @ts-ignore
+        scale: scaleProgress,
+        // @ts-ignore
+        opacity: opacityProgress,
       }}
       initial={{
         opacity: 0,
@@ -41,6 +43,7 @@ export default function EventCard({ event }: EventCardProps) {
           width={500}
           height={280}
           className="h-[60%] object-cover"
+          priority
         />
 
         <div className="flex flex-col flex-1 justify-center items-center">
